@@ -1,0 +1,9 @@
+namespace DialogBox
+{
+    [default_interface]
+    runtimeclass main : Windows.UI.Xaml.Controls.Page
+    {
+        main();
+        Int32 MyProperty;
+    }
+}
