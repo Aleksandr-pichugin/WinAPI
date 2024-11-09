@@ -1,6 +1,7 @@
-#define _CRT_SECURE_NO_WARNINGS
+п»ї#define _CRT_SECURE_NO_WARNINGS
 #include<windows.h>
 #include<cstdio>
+#include "resource.h"
 
 CONST CHAR g_sz_MY_WINDOW_CLASS[] = "My Window";
 
@@ -8,7 +9,7 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, INT nCmdShow)
 {
-	//1) Регистрация класса окна:
+	//1) Р РµРіРёСЃС‚СЂР°С†РёСЏ РєР»Р°СЃСЃР° РѕРєРЅР°:
 	WNDCLASSEX wc;
 	ZeroMemory(&wc, sizeof(wc));
 
@@ -17,9 +18,18 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;  // cb... -Count Bytes
 
-	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.hIcon = (HICON)LoadImage
+	(hInstance,"bitcoin.ico",IMAGE_ICON,LR_DEFAULTSIZE,LR_DEFAULTSIZE,LR_LOADFROMFILE);
+
+	wc.hIcon = (HICON)LoadImage
+	(hInstance,	"litecoin.ico",IMAGE_ICON,LR_DEFAULTSIZE,LR_DEFAULTSIZE,LR_LOADFROMFILE);
+
+	///wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+	//wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+
+
+
+	wc.hCursor = LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR1));
 	wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
 
 	wc.hInstance = hInstance;
@@ -34,7 +44,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 		return 0;
 	}
 
-	//2)Создание окна :
+	//2)РЎРѕР·РґР°РЅРёРµ РѕРєРЅР° :
 
 	INT screen_width = GetSystemMetrics(SM_CXSCREEN);
 	INT screen_height = GetSystemMetrics(SM_CYSCREEN);
@@ -58,11 +68,11 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 			hInstance,
 			NULL
 			);
-	ShowWindow(hwnd, nCmdShow);//Задает режим отображения окна
-	                           //(Развернута на весь экран, свернуто в окно , свернуто в панель задач)   
+	ShowWindow(hwnd, nCmdShow);//Р—Р°РґР°РµС‚ СЂРµР¶РёРј РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РѕРєРЅР°
+	                           //(Р Р°Р·РІРµСЂРЅСѓС‚Р° РЅР° РІРµСЃСЊ СЌРєСЂР°РЅ, СЃРІРµСЂРЅСѓС‚Рѕ РІ РѕРєРЅРѕ , СЃРІРµСЂРЅСѓС‚Рѕ РІ РїР°РЅРµР»СЊ Р·Р°РґР°С‡)   
 
-	UpdateWindow(hwnd);   // прорисовывает окно
-	//3)Запуск цикла сообщений:
+	UpdateWindow(hwnd);   // РїСЂРѕСЂРёСЃРѕРІС‹РІР°РµС‚ РѕРєРЅРѕ
+	//3)Р—Р°РїСѓСЃРє С†РёРєР»Р° СЃРѕРѕР±С‰РµРЅРёР№:
 	MSG msg;// 
 	while (GetMessage(&msg, NULL, 0, 0) > 0)
 	{
@@ -89,15 +99,15 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		CHAR sz_title[SIZE]{};
 		sprintf(sz_title, "%s - Position:%ix%i;\tSize: %ix%i", g_sz_MY_WINDOW_CLASS, rect.left, rect.top,
 			window_width, window_height);
-		//Функция sprintf(dst,src, parameters) форматирует src-строку , и результат форматирования сохраняет в другую строку
-		// dst-строка получатель 
-		//src- Sourse (строка источник) .Как правило является форматированной строкой.
-		// Которые подменяются соответствующими параметрамию
-		// %i - На место этого спецификатора встовляются значения типа 'int'
-		// %s - на место этого спецификатора вставляется значения типа 'char'
+		//Р¤СѓРЅРєС†РёСЏ sprintf(dst,src, parameters) С„РѕСЂРјР°С‚РёСЂСѓРµС‚ src-СЃС‚СЂРѕРєСѓ , Рё СЂРµР·СѓР»СЊС‚Р°С‚ С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёСЏ СЃРѕС…СЂР°РЅСЏРµС‚ РІ РґСЂСѓРіСѓСЋ СЃС‚СЂРѕРєСѓ
+		// dst-СЃС‚СЂРѕРєР° РїРѕР»СѓС‡Р°С‚РµР»СЊ 
+		//src- Sourse (СЃС‚СЂРѕРєР° РёСЃС‚РѕС‡РЅРёРє) .РљР°Рє РїСЂР°РІРёР»Рѕ СЏРІР»СЏРµС‚СЃСЏ С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРЅРѕР№ СЃС‚СЂРѕРєРѕР№.
+		// РљРѕС‚РѕСЂС‹Рµ РїРѕРґРјРµРЅСЏСЋС‚СЃСЏ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёРјРё РїР°СЂР°РјРµС‚СЂР°РјРёСЋ
+		// %i - РќР° РјРµСЃС‚Рѕ СЌС‚РѕРіРѕ СЃРїРµС†РёС„РёРєР°С‚РѕСЂР° РІСЃС‚РѕРІР»СЏСЋС‚СЃСЏ Р·РЅР°С‡РµРЅРёСЏ С‚РёРїР° 'int'
+		// %s - РЅР° РјРµСЃС‚Рѕ СЌС‚РѕРіРѕ СЃРїРµС†РёС„РёРєР°С‚РѕСЂР° РІСЃС‚Р°РІР»СЏРµС‚СЃСЏ Р·РЅР°С‡РµРЅРёСЏ С‚РёРїР° 'char'
 		// ...f-format
 		//s... -string
-		// printf()- print formated string (Вывести на экран отформатированную строку ).
+		// printf()- print formated string (Р’С‹РІРµСЃС‚Рё РЅР° СЌРєСЂР°РЅ РѕС‚С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРЅСѓСЋ СЃС‚СЂРѕРєСѓ ).
 		SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)sz_title);
 	}
 
