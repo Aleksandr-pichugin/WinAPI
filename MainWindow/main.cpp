@@ -97,7 +97,7 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		// %s - на место этого спецификатора вставляется значения типа 'char'
 		// ...f-format
 		//s... -string
-		// printf()- print formated string (Вывести на экран отформатированную строку )
+		// printf()- print formated string (Вывести на экран отформатированную строку ).
 		SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)sz_title);
 	}
 
