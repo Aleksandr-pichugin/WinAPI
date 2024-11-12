@@ -2,8 +2,15 @@
 #include<windows.h>
 #include<cstdio>
 #include "resource.h"
+#include "WinUser.h"
 
 CONST CHAR g_sz_MY_WINDOW_CLASS[] = "My Window";
+	/*HICON LoadIconA(
+		[in, optional] HINSTANCE hInstance,
+    HICON LoadIconA(HINSTANCE hInstance, LPCTSTR seo.ico)
+		[in  ]  LPCWSTR  lpIconName  "seo.ico"
+	);*/
+
 
 INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -17,19 +24,27 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 	wc.cbSize = sizeof(wc);
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;  // cb... -Count Bytes
+	//wc.hIconW=(HICON)LoadImage
+		//(hInstance,"seo.ico", IMAGE_ICON,LR_DEFAULTSIZE, LR_DEFAULTSIZE, LR_LOADFROMFILE);
 
 	wc.hIcon = (HICON)LoadImage
-	(hInstance,"bitcoin.ico",IMAGE_ICON,LR_DEFAULTSIZE,LR_DEFAULTSIZE,LR_LOADFROMFILE);
+	(hInstance, "bitcoin.ico", IMAGE_ICON, LR_DEFAULTSIZE, LR_DEFAULTSIZE, LR_LOADFROMFILE);
 
-	wc.hIcon = (HICON)LoadImage
+
+	wc.hIconSm = (HICON)LoadImage
 	(hInstance,	"litecoin.ico",IMAGE_ICON,LR_DEFAULTSIZE,LR_DEFAULTSIZE,LR_LOADFROMFILE);
 
-	///wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+	//wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	//wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
 
-
-
-	wc.hCursor = LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR1));
+    wc.hCursor = (HCURSOR)
+        LoadImage(hInstance, "cursors\\starcraft-original\\Working In Background.ani", 
+        IMAGE_CURSOR,
+        LR_DEFAULTSIZE,
+        LR_DEFAULTSIZE,
+        LR_LOADFROMFILE
+    );
+	//wc.hCursor = LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR1));
 	wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
 
 	wc.hInstance = hInstance;
